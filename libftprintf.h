@@ -6,26 +6,26 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:44:57 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/05/15 17:57:13 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:44:08 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
-# include <stdarg.h>
 # include <stdio.h>
+# include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
 
-void	ft_putnbr(int n);
-void	ft_unsigned_putnbr(int n);
-void	ft_putchar(char c);
-void	ft_print_str(char *s);
-int		check_base_size_and_errors(char *s1);
-void	ft_putnbr_base(int nbr, char *base);
-void	ft_convert_ptr(unsigned int long p, char *base);
-void	ft_found_arg(char c, va_list *al);
+size_t	ft_putnbr(int n);
+size_t	ft_putchar(char c);
+size_t	ft_print_str(char *s);
+size_t	ft_unsigned_putnbr(int n);
 int		ft_printf(const char *str, ...);
+size_t	ft_found_arg(char c, va_list *al);
+size_t	ft_putnbr_base(int nbr, char *base);
+int		check_base_size_and_errors(char *s1);
+size_t	ft_convert_ptr(unsigned int long p, char *base);
 
 #endif
