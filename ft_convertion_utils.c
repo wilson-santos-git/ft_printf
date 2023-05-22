@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:49:19 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/05/18 19:44:34 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:05:08 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 size_t	ft_putnbr(int n)
 {
@@ -62,47 +62,40 @@ int	check_base_size_and_errors(char *s1)
 	return (j);
 }
 
-size_t	ft_putnbr_base(int nbr, char *base)
+size_t	ft_putnbr_base(unsigned int nbr, char *base)
 {
 	long			longn;
-	int				baselen;
 	size_t			counter;
 
 	counter = 0;
 	longn = (long)nbr;
-	baselen = check_base_size_and_errors(base);
-	if (baselen <= 1)
-		return (counter);
-	if (longn == -2147483648)
-	{
-		counter += ft_putchar('-');
-		longn = 2147483648;
-	}
 	if (longn < 0)
 	{
-		longn = longn * (-1);
+		longn = -longn;
 		counter += ft_putchar('-');
 	}
-	if (longn > baselen)
-		counter += ft_putnbr_base(longn / baselen, base);
-	counter += ft_putchar(base[longn % baselen]);
+	if (longn >= 16)
+		counter += ft_putnbr_base(longn / 16, base);
+	counter += ft_putchar(base[longn % 16]);
 	return (counter);
 }
 
 size_t	ft_convert_ptr(unsigned int long p, char *base)
 {
 	size_t				counter;
-	unsigned int long	baselen;
 	unsigned int long	converted;
 
 	counter = 0;
 	converted = p;
-	baselen = check_base_size_and_errors(base);
-	if (baselen <= 1)
+	if (!(void *)p)
+	{
+		ft_print_str("(nil)");
+		counter += 5;
 		return (counter);
-	if (converted > baselen)
-		counter += ft_convert_ptr(converted / baselen, base);
-	counter += ft_putchar(base[converted % baselen]);
+	}
+	if (converted >= 16)
+		counter += ft_convert_ptr(converted / 16, base);
+	counter += ft_putchar(base[converted % 16]);
 	return (counter);
 }
 
@@ -111,7 +104,7 @@ size_t	ft_unsigned_putnbr(int n)
 	char			c;
 	unsigned int	nbr;
 	size_t			counter;
-	
+
 	counter = 0;
 	nbr = (unsigned int)n;
 	if (nbr > 9)

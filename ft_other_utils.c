@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:50:51 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/05/18 18:48:27 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:05:06 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 size_t	ft_putchar(char c)
 {
@@ -29,6 +29,11 @@ size_t	ft_print_str(char *s)
 
 	i = 0;
 	counter = 0;
+	if (!s)
+	{
+		ft_print_str("(null)");
+		counter += 6;
+	}
 	while (s && s[i])
 		counter += ft_putchar(s[i++]);
 	return (counter);
